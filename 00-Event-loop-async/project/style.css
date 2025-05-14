@@ -1,0 +1,129 @@
+:root{
+    --color-dark:#000000;
+    --color-dark-semi:rgba(0, 0, 0, 0.70);
+    --color-light:#ffffff;
+    --color-color1:#15ff00;
+    --color-color1-semi:#08a8205f;
+    --color-color2:#35eeff;
+    --color-color2-semi:#1c9eaa52;
+}
+
+body{
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    margin: 0;
+}
+
+html{
+    margin: 0;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    animation: header__rainbow, 3s, infinite;
+    background: linear-gradient(
+    to left,
+    rgba(47, 255, 0, 0.8),   /* Naranja */
+        rgba(0, 0, 0, 0.8),   /* Naranja */
+        rgba(0, 234, 255, 0.8)   /* Amarillo */
+    );
+    background-size: 250% 100%; /* El fondo es 2.5 veces más ancho que el header */
+    animation: rainbow_slide 10s ease-in-out infinite;
+}
+
+@keyframes rainbow_slide{
+    0% {
+        background-position: 0% 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0% 50%;
+    }
+}
+
+.header__wrapper{
+    margin: 0 0 .1rem 0;
+    padding: 1rem 3rem;
+    width: 100%;
+    background-color: var(--color-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__title{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+main{
+    padding: 3rem;
+}
+
+.main__order_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wrapper__notReady{
+    background-color: var(--color-color1-semi);
+    flex:1;
+    margin-right: 1rem;
+    border: 2px solid var(--color-color1);
+    border-radius: .5rem;
+    height: 50vh;
+
+}
+
+.wrapper__Ready{
+    background-color: var(--color-color2-semi);
+    flex:1;
+    margin-left: 1rem;
+    border: 2px solid var(--color-color2);
+    border-radius: .5rem;
+    height: 50vh;
+}
+
+.iner__italica{
+    font-style: italic;
+}
+
+.rouge-script-regular {
+    font-family: "Rouge Script", cursive;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 3.25rem;
+    padding: .2rem;
+}  
+
+.hero__wrapper{
+    position: relative;
+    left: -3rem;
+    width: 100vw;
+    background-color: var(--color-color1-semi);
+}
+
+button{
+    border: none;
+    background-color: var(--color-light);
+    padding: .5rem;
+    border-radius: .5rem;
+}
+
+a{
+    color: var(--color-light);
+    background-color: var(--color-dark);
+    padding: .5rem;
+    border-radius: .5rem;
+    text-decoration: none;
+}

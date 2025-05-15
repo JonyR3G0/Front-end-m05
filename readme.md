@@ -14,8 +14,3 @@
 | 29/04/2025 | Event Loop, Async, Client/server, Postman |
 
 ## 🔨 Projects
-
-## 🎊 Bonus:
-
-I did a little scheme/poster about the event loop:
-![event loop poster](<resources/Event Loop Poster.svg>)

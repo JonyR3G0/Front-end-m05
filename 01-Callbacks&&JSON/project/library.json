@@ -1,0 +1,254 @@
+[
+  {
+    "title": "A Tale of Two Cities",
+    "author": "Charles Dickens",
+    "genre": "Historical Fiction",
+    "status": "available"
+  },
+  {
+    "title": "The Little Prince",
+    "author": "Antoine de Saint-Exupéry",
+    "genre": "Fantasy, Children's Fiction",
+    "status": "rented"
+  },
+  {
+    "title": "The Alchemist",
+    "author": "Paulo Coelho",
+    "genre": "Fantasy",
+    "status": "available"
+  },
+  {
+    "title": "Harry Potter and the Philosopher's Stone",
+    "author": "J. K. Rowling",
+    "genre": "Fantasy, Children's Fiction",
+    "status": "rented"
+  },
+  {
+    "title": "And Then There Were None",
+    "author": "Agatha Christie",
+    "genre": "Mystery",
+    "status": "available"
+  },
+  {
+    "title": "The Hobbit",
+    "author": "J. R. R. Tolkien",
+    "genre": "Fantasy, Children's Fiction",
+    "status": "available"
+  },
+  {
+    "title": "Alice's Adventures in Wonderland",
+    "author": "Lewis Carroll",
+    "genre": "Fantasy, Absurdist Fiction",
+    "status": "rented"
+  },
+  {
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "genre": "Southern Gothic, Bildungsroman",
+    "status": "available"
+  },
+  {
+    "title": "Cosmos",
+    "author": "Carl Sagan",
+    "genre": "Popular Science",
+    "status": "available"
+  },
+  {
+    "title": "Angels & Demons",
+    "author": "Dan Brown",
+    "genre": "Mystery-Thriller",
+    "status": "rented"
+  },
+  {
+    "title": "Don Quixote",
+    "author": "Miguel de Cervantes",
+    "genre": "Satire, Classic",
+    "status": "available"
+  },
+  {
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "genre": "Romance, Classic",
+    "status": "rented"
+  },
+  {
+    "title": "Moby Dick",
+    "author": "Herman Melville",
+    "genre": "Adventure, Classic",
+    "status": "available"
+  },
+  {
+    "title": "Frankenstein, or, the Modern Prometheus",
+    "author": "Mary Shelley",
+    "genre": "Gothic Fiction, Science Fiction",
+    "status": "available"
+  },
+  {
+    "title": "Brave New World",
+    "author": "Aldous Huxley",
+    "genre": "Dystopian, Science Fiction",
+    "status": "rented"
+  },
+  {
+    "title": "War and Peace",
+    "author": "Leo Tolstoy",
+    "genre": "Historical Novel, Classic",
+    "status": "available"
+  },
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "genre": "Modernist Novel, Classic",
+    "status": "rented"
+  },
+  {
+    "title": "1984",
+    "author": "George Orwell",
+    "genre": "Dystopian, Political Fiction",
+    "status": "available"
+  },
+  {
+    "title": "The Lord of the Rings",
+    "author": "J.R.R. Tolkien",
+    "genre": "High Fantasy",
+    "status": "available"
+  },
+  {
+    "title": "The Catcher in the Rye",
+    "author": "J.D. Salinger",
+    "genre": "Coming-of-Age Fiction",
+    "status": "rented"
+  },
+  {
+    "title": "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe",
+    "author": "C.S. Lewis",
+    "genre": "Fantasy, Children's Literature",
+    "status": "available"
+  },
+  {
+    "title": "Flowers in the Attic",
+    "author": "V. C. Andrews",
+    "genre": "Gothic Horror, Family Saga",
+    "status": "rented"
+  },
+  {
+    "title": "The Da Vinci Code",
+    "author": "Dan Brown",
+    "genre": "Mystery, Thriller",
+    "status": "available"
+  },
+  {
+    "title": "The Hunger Games",
+    "author": "Suzanne Collins",
+    "genre": "Dystopian, Young Adult",
+    "status": "rented"
+  },
+  {
+    "title": "The Girl with the Dragon Tattoo",
+    "author": "Stieg Larsson",
+    "genre": "Crime, Mystery, Thriller",
+    "status": "available"
+  },
+  {
+    "title": "Sapiens: A Brief History of Humankind",
+    "author": "Yuval Noah Harari",
+    "genre": "Non-Fiction, History",
+    "status": "available"
+  },
+  {
+    "title": "The Martian",
+    "author": "Andy Weir",
+    "genre": "Science Fiction",
+    "status": "rented"
+  },
+  {
+    "title": "Gone Girl",
+    "author": "Gillian Flynn",
+    "genre": "Thriller, Mystery",
+    "status": "available"
+  },
+  {
+    "title": "The Shining",
+    "author": "Stephen King",
+    "genre": "Horror",
+    "status": "available"
+  },
+  {
+    "title": "Dracula",
+    "author": "Bram Stoker",
+    "genre": "Gothic Horror",
+    "status": "rented"
+  },
+  {
+    "title": "The Adventures of Sherlock Holmes",
+    "author": "Arthur Conan Doyle",
+    "genre": "Detective Fiction, Mystery",
+    "status": "available"
+  },
+  {
+    "title": "Fahrenheit 451",
+    "author": "Ray Bradbury",
+    "genre": "Dystopian, Science Fiction",
+    "status": "rented"
+  },
+  {
+    "title": "Animal Farm",
+    "author": "George Orwell",
+    "genre": "Political Satire, Allegory",
+    "status": "available"
+  },
+  {
+    "title": "The Hitchhiker's Guide to the Galaxy",
+    "author": "Douglas Adams",
+    "genre": "Science Fiction, Comedy",
+    "status": "available"
+  },
+  {
+    "title": "Lord of the Flies",
+    "author": "William Golding",
+    "genre": "Allegorical Novel",
+    "status": "rented"
+  },
+  {
+    "title": "Jane Eyre",
+    "author": "Charlotte Brontë",
+    "genre": "Gothic Novel, Romance",
+    "status": "available"
+  },
+  {
+    "title": "Wuthering Heights",
+    "author": "Emily Brontë",
+    "genre": "Gothic Novel, Tragedy",
+    "status": "rented"
+  },
+  {
+    "title": "The Picture of Dorian Gray",
+    "author": "Oscar Wilde",
+    "genre": "Philosophical Novel, Decadent Literature",
+    "status": "available"
+  },
+  {
+    "title": "Crime and Punishment",
+    "author": "Fyodor Dostoevsky",
+    "genre": "Philosophical Novel, Psychological Fiction",
+    "status": "available"
+  },
+  {
+    "title": "One Hundred Years of Solitude",
+    "author": "Gabriel García Márquez",
+    "genre": "Magical Realism",
+    "status": "rented"
+  },
+  {
+    "title": "Los juegos del hambre: en llamas",
+    "author": "Susane collings",
+    "genre": "Fiction",
+    "status": "Avalible"
+  },
+  {
+    "title": "El principito",
+    "author": "saint extupery",
+    "genre": "Infantil",
+    "status": "available"
+  }
+]

@@ -17,7 +17,7 @@ const API_KEY = "e197bf78b45694a04c49b6d58f692f31"; // Replace with your actual 
 const API_DOMAIN = "https://api.scripture.api.bible/v1/bibles"; // Replace with your actual API domain
 
 let bibleData = []; // Array to store bible data
-let bibleListChapterVerses = {};
+let bibleListChapterVerses = [];
 
 /**
  * Fetches a list of bibles from the API and stores them in bibleData array.
@@ -80,7 +80,13 @@ const patchBibleData = async () => {
     // }
     const JSONbooks = await response.json();
     JSONbooks.data.forEach((book) => {
-      console.log(book);
+      const bookObject = {
+        id: book.id,
+        name: book.name,
+        chapters: [],
+        verses: [],
+      };
+      bibleListChapterVerses.push(bookObject);
     });
   } catch (error) {
     console.error("Error patching bible data:", error);
@@ -89,6 +95,8 @@ const patchBibleData = async () => {
 };
 
 await patchBibleData();
+console.log('Bible data patched and stored', bibleListChapterVerses);
+console.log(`with ${bibleListChapterVerses.length} books.`);
 
 const fetchBibleText = async (bibleId, bookId, chapter) => {
   //TODO: Fetch the text of a specific bible, book, and chapter

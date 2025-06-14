@@ -64,7 +64,7 @@ await fetchBibles();
 console.log("Bibles fetched and stored in bibleData.");
 console.log("Bible Data:", bibleData);
 
-const patchBibleData = async () => {
+const patchBibleDataBooks = async () => {
   //TODO: Parse bible data and extract the list of chapter and verses
   try {
     const bibleId = bibleData[1].id;
@@ -73,11 +73,11 @@ const patchBibleData = async () => {
         "api-key": API_KEY,
       },
     });
-    // if (!response.ok) {
-    //   throw new Error(
-    //     `HTTP error! status: ${response.status} - ${response.statusText}`
-    //   );
-    // }
+    if (!response.ok) {
+      throw new Error(
+        `HTTP error! status: ${response.status} - ${response.statusText}`
+      );
+    }
     const JSONbooks = await response.json();
     JSONbooks.data.forEach((book) => {
       const bookObject = {
@@ -94,7 +94,7 @@ const patchBibleData = async () => {
   }
 };
 
-await patchBibleData();
+await patchBibleDataBooks();
 console.log('Bible data patched and stored', bibleListChapterVerses);
 console.log(`with ${bibleListChapterVerses.length} books.`);
 

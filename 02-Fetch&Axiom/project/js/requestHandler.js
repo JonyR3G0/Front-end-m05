@@ -66,6 +66,7 @@ console.log("Bible Data:", bibleData);
 
 const patchBibleDataBooks = async () => {
   //TODO: Parse bible data and extract the list of chapter and verses
+  //! FIXME: This function is not working as expected, it needs to be implemented with mutability in mind
   try {
     const bibleId = bibleData[1].id;
     const response = await fetch(`${API_DOMAIN}/${bibleId}/books`, {
@@ -94,9 +95,40 @@ const patchBibleDataBooks = async () => {
   }
 };
 
+const patchBibleDataChapters = async (actualBook) => {
+  //! FIXME: This function is not working as expected, it needs to be implemented with mutability in mind
+  try {
+    const bibleId = bibleData[1].id;
+    const response = await fetch(`${API_DOMAIN}/${bibleId}/books/${actualBook}/chapters`,{
+      headers: {
+        "api-key": API_KEY,
+      }})
+    if (!response.ok) {
+      throw new Error(
+        `HTTP error! status: ${response.status} - ${response.statusText}`
+      );
+    }
+    const JSONchapters = await response.json();
+    JSONchapters.data.forEach((chapter) => {
+      bibleListChapterVerses.forEach(book => {if (book.id.toLowerCase() === actualBook.toLowerCase()){
+        bibleListChapterVerses[0].chapters += `${chapter.number},`
+      }        
+      });
+    });
+  } catch (error) {
+    console.error("Error patching bible data chapters:", error);
+    throw error; // Propagate the error to the caller``) {
+  }
+}
+
+// Start the process of fetching and patching bible data
 await patchBibleDataBooks();
 console.log('Bible data patched and stored', bibleListChapterVerses);
 console.log(`with ${bibleListChapterVerses.length} books.`);
+
+//? How exactly I need to patch the chapters for every book?
+await patchBibleDataChapters('gen');
+console.log('Chapters patched for book GEN:', bibleListChapterVerses);
 
 const fetchBibleText = async (bibleId, bookId, chapter) => {
   //TODO: Fetch the text of a specific bible, book, and chapter

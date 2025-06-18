@@ -130,8 +130,9 @@ console.log(`with ${bibleListChapterVerses.length} books.`);
 await patchBibleDataChapters('gen');
 console.log('Chapters patched for book GEN:', bibleListChapterVerses);
 
-const fetchBibleText = async (bibleId, bookId, chapter) => {
+const fetchBibleText = async (bibleId, bookId, chapter, verse) => {
   //TODO: Fetch the text of a specific bible, book, and chapter
+  
 };
 
 const fetchRandomVerse = async () => {

@@ -27,3 +27,8 @@ A collection of hands-on exercises crafted by [me](https://github.com/JonyR3G0),
 | Intro to Vite                 | =          |
 
 ## 🔨 Projects
+
+## ⚡ New good-practices adquired
+
+* `Implementation of jsdocs`
+* `Early exit`

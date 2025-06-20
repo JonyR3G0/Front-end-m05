@@ -1,40 +1,90 @@
-// Aquí tienes un código incompleto para tomar como base. Cada función está definida, pero los pasos cruciales aún no están implementados.
+let mesasDisponibles = 5; // Número de mesas disponibles para reservar
 
-// Simulando una base de datos de mesas
-const mesasDisponibles = 5;  // Número de mesas disponibles para reservar
-
-// Función que simula la verificación de disponibilidad de mesas
+/**
+ * Simula la verificación de disponibilidad de mesas.
+ *
+ * @param {number} mesasSolicitadas debe ser un número entero que representa la cantidad de mesas solicitadas por el cliente.
+ * @throws {Error} Si el número de mesas solicitadas es menor o igual a 0.
+ * @throws {Error} Si el número de mesas solicitadas es mayor que el número de mesas disponibles.
+ * @throws {Error} Si el número de mesas solicitadas no es un número entero.
+ * @returns {Promise<boolean>} Una promesa que se resuelve con true si hay suficientes mesas disponibles, o false si no.
+ * @description Esta función simula un retraso de 2 segundos para verificar la disponibilidad de mesas. Si hay suficientes mesas disponibles, se actualiza el número de mesas disponibles y se resuelve la promesa con true. Si no hay suficientes mesas, se muestra un mensaje de error y se resuelve la promesa con false.
+ */
 function verificarDisponibilidad(mesasSolicitadas) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      // Completa la lógica aquí: Si hay suficientes mesas disponibles, resuelve la promesa, 
-      // de lo contrario, recházala con un mensaje adecuado.
-    }, 2000);  // Simula un retraso en la verificación (2 segundos)
+      if (typeof mesasSolicitadas !== "number")
+        return reject(
+          new Error("El número de mesas solicitadas debe ser un número entero.")
+        );
+      if (!Number.isInteger(mesasSolicitadas))
+        return reject(
+          new Error("El número de mesas solicitadas debe ser un número entero.")
+        );
+      if (mesasSolicitadas > mesasDisponibles) {
+        console.log(
+          `No hay suficientes mesas disponibles. Solicitadas: ${mesasSolicitadas}, Disponibles: ${mesasDisponibles}`
+        );
+        return reject(new Error("No hay suficientes mesas disponibles."));
+      }
+      if (mesasSolicitadas <= 0)
+        return reject(new Error("No puede solicitar 0 mesas."));
+      mesasDisponibles -= mesasSolicitadas; // Actualiza el número de mesas disponibles
+      resolve(true); // Resuelve la promesa si hay suficientes mesas
+    }, 2000); // Simula un retraso en la verificación (2 segundos)
   });
 }
 
-// Función que simula el envío de un correo de confirmación
-function enviarConfirmacionReserva(nombreCliente) {
+/**
+ * Simula el envío de un correo de confirmación de reserva.
+ *
+ * @param {string} nombreCliente El nombre del cliente que realiza la reserva.
+ * @param {number} mesasSolicitadas El número de mesas solicitadas por el cliente.
+ * @returns {Promise<void>} Una promesa que se resuelve si el envío es exitoso, o se rechaza si hay un error.
+ * @description Esta función simula un retraso de 1.5 segundos para enviar un correo de confirmación. Si la simulación marca un error, se rechaza la promesa con un mensaje de error. Simula un ratio de error del 20% (1 de cada 5 intentos falla) para simular problemas al enviar el correo.
+ * @throws {Error} Si ocurre un error al enviar la confirmación de reserva.
+ */
+function enviarConfirmacionReserva(nombreCliente, mesasSolicitadas) {
   return new Promise((resolve, reject) => {
+    const probabilidadError = Math.floor(Math.random() * 10); // Genera un número aleatorio entre 0 y 1
     setTimeout(() => {
-      // Completa la lógica aquí: Simula un envío de correo. Usa Math.random() 
-      // para simular si el correo se envió correctamente o si ocurrió un error.
-    }, 1500);  // Simula el envío de un correo (1.5 segundos)
+      if (probabilidadError > 2) {
+        console.log(
+          `Reserva confirmada para ${nombreCliente}. Mesas solicitadas: ${mesasSolicitadas}.`
+        ); // Mensaje de éxito
+        console.log(`Mesas disponibles restantes: ${mesasDisponibles}.`); // Muestra las mesas restantes
+      } else {
+        reject(new Error("Error al enviar la confirmación de reserva.")); // Rechaza la promesa si la simulación marca un error de email
+      }
+    }, 1500); // Simula el envío de un correo (1.5 segundos)
   });
 }
 
-// Función principal para manejar una reserva
+/**
+ * Maneja el proceso de reserva de mesas.
+ *
+ * @param {string} nombreCliente El nombre del cliente que realiza la reserva.
+ * @param {number} mesasSolicitadas El número de mesas solicitadas por el cliente.
+ * @returns {Promise<void>} Una promesa que se resuelve si la reserva es exitosa, o se rechaza si hay un error.
+ * @description Esta función verifica la disponibilidad de mesas y envía una confirmación de reserva si hay suficientes mesas disponibles. Si ocurre un error en cualquier parte del proceso, se captura y muestra en la consola.
+ */
 async function hacerReserva(nombreCliente, mesasSolicitadas) {
   try {
     console.log("Verificando disponibilidad de mesas...");
-    const disponibilidad = await verificarDisponibilidad(mesasSolicitadas);  // Llama a la función de verificación
-    
-    // Completa el flujo aquí: Si hay mesas disponibles, llama a la función para enviar la confirmación.
-    // Si no hay mesas disponibles o si ocurre un error, captura el error.
+    const disponibilidad = await verificarDisponibilidad(mesasSolicitadas); // Llama a la función de verificaciónr
+    if (disponibilidad === true) {
+      await enviarConfirmacionReserva(nombreCliente, mesasSolicitadas); // Llama a la función de envío de confirmación si hay la cantidad de mesas disponibles
+    }
   } catch (error) {
-    console.log("Error:", error);  // Maneja los errores en la promesa
+    console.log("Error:", error); // Captura y muestra cualquier error que ocurra durante el proceso
   }
 }
 
-// Llamada de prueba
-hacerReserva("Juan Pérez", 3);  // Intenta hacer una reserva para 3 personas
+// Llamadas de prueba
+hacerReserva("Juan Pérez", 'uno'); // Intenta hacer una reserva, pero con un valor no numérico
+hacerReserva("Juan Pérez", 0.4); // Intenta hacer una reserva, pero con un valor decimal
+hacerReserva("Juan Pérez", 0); // Intenta hacer una reserva, pero con 0 mesas
+hacerReserva("Juan Pérez", 100); // Intenta hacer una reserva para 100 mesas
+hacerReserva("Juan Pérez", 2); // Intenta hacer una reserva para 2 personas
+hacerReserva("Natalia Tovar", 3); // Intenta hacer una reserva para 3 personas
+

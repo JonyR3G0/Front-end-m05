@@ -29,8 +29,6 @@ function verificarDisponibilidad(mesasSolicitadas) {
       }
       if (mesasSolicitadas <= 0)
         return reject(new Error("No puede solicitar 0 mesas."));
-      //!FIX: las mesas disponibles de deben actualizar hasta que se confirme la reserva via el mail
-      mesasDisponibles -= mesasSolicitadas; // Actualiza el número de mesas disponibles
       resolve(true); // Resuelve la promesa si hay suficientes mesas
     }, 2000); // Simula un retraso en la verificación (2 segundos)
   });
@@ -50,14 +48,24 @@ function enviarConfirmacionReserva(nombreCliente, mesasSolicitadas) {
     const probabilidadError = Math.floor(Math.random() * (10 + 1)); // Genera un número aleatorio entre 0 y 10
     setTimeout(() => {
       if (probabilidadError > 2) {
+        mesasDisponibles -= mesasSolicitadas; // Actualiza el número de mesas disponibles
         console.log(`
-          +=================================================================================+
-          Reserva confirmada para ${nombreCliente}. Mesas solicitadas: ${mesasSolicitadas}.
-          +=================================================================================+
-          `); // Mensaje de éxito
-        console.log(`Mesas disponibles restantes: ${mesasDisponibles}.`); // Muestra las mesas restantes
++=================================================================================+
+Reserva confirmada para ${nombreCliente}. Mesas solicitadas: ${mesasSolicitadas}.
+Mesas disponibles restantes: ${mesasDisponibles}
++=================================================================================+
+        `); // Mensaje de éxito
       } else {
-        reject(new Error("📛Hubo un error al enviar la confirmación de reserva via email.📛")); // Rechaza la promesa si la simulación marca un error de email
+        console.log(`
++=================================================================================+
+Error al enviar la confirmación de reserva para ${nombreCliente}. mesas disponibles: ${mesasDisponibles}.
++=================================================================================+
+            `);
+        reject(
+          new Error(
+            "📛Hubo un error al enviar la confirmación de reserva via email.📛"
+          )
+        ); // Rechaza la promesa si la simulación marca un error de email
       }
     }, 1500); // Simula el envío de un correo (1.5 segundos)
   });
@@ -73,7 +81,9 @@ function enviarConfirmacionReserva(nombreCliente, mesasSolicitadas) {
  */
 async function hacerReserva(nombreCliente, mesasSolicitadas) {
   try {
-    console.log("===================> Verificando disponibilidad de mesas... <===================");
+    console.log(
+      "===================> Verificando disponibilidad de mesas... <==================="
+    );
     const disponibilidad = await verificarDisponibilidad(mesasSolicitadas); // Llama a la función de verificaciónr
     if (disponibilidad === true) {
       await enviarConfirmacionReserva(nombreCliente, mesasSolicitadas); // Llama a la función de envío de confirmación
@@ -84,10 +94,9 @@ async function hacerReserva(nombreCliente, mesasSolicitadas) {
 }
 
 // Llamadas de prueba
-hacerReserva("Juan Pérez", 'uno'); // Intenta hacer una reserva, pero con un valor no numérico
+hacerReserva("Juan Pérez", "uno"); // Intenta hacer una reserva, pero con un valor no numérico
 hacerReserva("Juan Pérez", 0.4); // Intenta hacer una reserva, pero con un valor decimal
 hacerReserva("Juan Pérez", 0); // Intenta hacer una reserva, pero con 0 mesas
 hacerReserva("Juan Pérez", 100); // Intenta hacer una reserva para 100 mesas
 hacerReserva("Juan Pérez", 2); // Intenta hacer una reserva para 2 personas
-hacerReserva("Natalia Tovar", 3); // Intenta hacer una reserva para 3 personas
-
+hacerReserva("Natalia Escobar", 3); // Intenta hacer una reserva para 3 personas

@@ -29,6 +29,7 @@ function verificarDisponibilidad(mesasSolicitadas) {
       }
       if (mesasSolicitadas <= 0)
         return reject(new Error("No puede solicitar 0 mesas."));
+      //!FIX: las mesas disponibles de deben actualizar hasta que se confirme la reserva via el mail
       mesasDisponibles -= mesasSolicitadas; // Actualiza el número de mesas disponibles
       resolve(true); // Resuelve la promesa si hay suficientes mesas
     }, 2000); // Simula un retraso en la verificación (2 segundos)
@@ -46,15 +47,17 @@ function verificarDisponibilidad(mesasSolicitadas) {
  */
 function enviarConfirmacionReserva(nombreCliente, mesasSolicitadas) {
   return new Promise((resolve, reject) => {
-    const probabilidadError = Math.floor(Math.random() * 10); // Genera un número aleatorio entre 0 y 1
+    const probabilidadError = Math.floor(Math.random() * (10 + 1)); // Genera un número aleatorio entre 0 y 10
     setTimeout(() => {
       if (probabilidadError > 2) {
-        console.log(
-          `Reserva confirmada para ${nombreCliente}. Mesas solicitadas: ${mesasSolicitadas}.`
-        ); // Mensaje de éxito
+        console.log(`
+          +=================================================================================+
+          Reserva confirmada para ${nombreCliente}. Mesas solicitadas: ${mesasSolicitadas}.
+          +=================================================================================+
+          `); // Mensaje de éxito
         console.log(`Mesas disponibles restantes: ${mesasDisponibles}.`); // Muestra las mesas restantes
       } else {
-        reject(new Error("Error al enviar la confirmación de reserva.")); // Rechaza la promesa si la simulación marca un error de email
+        reject(new Error("📛Hubo un error al enviar la confirmación de reserva via email.📛")); // Rechaza la promesa si la simulación marca un error de email
       }
     }, 1500); // Simula el envío de un correo (1.5 segundos)
   });
@@ -70,10 +73,10 @@ function enviarConfirmacionReserva(nombreCliente, mesasSolicitadas) {
  */
 async function hacerReserva(nombreCliente, mesasSolicitadas) {
   try {
-    console.log("Verificando disponibilidad de mesas...");
+    console.log("===================> Verificando disponibilidad de mesas... <===================");
     const disponibilidad = await verificarDisponibilidad(mesasSolicitadas); // Llama a la función de verificaciónr
     if (disponibilidad === true) {
-      await enviarConfirmacionReserva(nombreCliente, mesasSolicitadas); // Llama a la función de envío de confirmación si hay la cantidad de mesas disponibles
+      await enviarConfirmacionReserva(nombreCliente, mesasSolicitadas); // Llama a la función de envío de confirmación
     }
   } catch (error) {
     console.log("Error:", error); // Captura y muestra cualquier error que ocurra durante el proceso

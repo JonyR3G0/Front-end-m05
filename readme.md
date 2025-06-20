@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> From now on, all the docs for the `Fron End Master by Dev.F series` will be in English, end eventually all the code comments 🇺🇸
+> From now on, all the docs for the `Front End Master by Dev.F series` will be in English, end eventually all the code comments 🇺🇸
 
 # 🛰️ Advanced development in JavaScript `05`
 

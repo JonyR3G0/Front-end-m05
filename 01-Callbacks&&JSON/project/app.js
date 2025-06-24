@@ -1,10 +1,22 @@
-//I learned the hard way that JS parses Json files auto. when imported.
+//When importing JSON files, the import statement automatically parses the JSON file into a JavaScript object.
+//This means that the imported JSON file is already in a format that can be used directly, without needing to manually parse it using `JSON.parse()`.
 import * as JSONLibrary from "./library.json"  with {type: 'json'}
 import fs, { write } from "fs"
 
+//This is the array that will hold the library books
+//It will be filled with the parsed JSON data
 let libraryArray = []
 
-//Manajes JSON affairs. returns a promise that uses a callback
+
+/**
+ * This function simulates a network request to parse a JSON file.
+ * Since the import statement automatically parses the JSON file, this function is used to emulate a delay in processing, and parserFunction just moves the parsed JSON out of the default object.
+ * Selects a random delay between 200ms and 1999ms to simulate network latency.
+ *
+ * @param {object} JSONLibrary 
+ * @param {callback} callback 
+ * @returns {Promise<void>} A promise that resolves when the JSON is parsed and the callback is executed.
+ */
 function JSONObjectParser(JSONLibrary, callback) {
     //Emulating time responses from 200ms - 1999ms
     const time = Math.floor(Math.random() * (2000 - 200) + 200)
@@ -22,8 +34,14 @@ function JSONObjectParser(JSONLibrary, callback) {
     })
 }
 
-//Moves the parsed JSON deafult obj. to the original structure into the library arr.
-//this is the callback for the JSONobjectparser
+
+/**
+ * This function is called by the JSONObjectParser as a promise to handle the parsed JSON data.
+ * Moves the parsed JSON data from the 'default' property of the imported JSON object to the libraryArray.
+ *
+ * @param {object} JSONLibrary 
+ * @param {number} time 
+ */
 const parserFunction = (JSONLibrary, time) => {
     console.log("Hi! the response time was:", time)
     //Bc import auto. parses the JSON, the content it's enveloped in an obj 'default'
@@ -33,7 +51,14 @@ const parserFunction = (JSONLibrary, time) => {
     )
 }
 
-//Rewrites a JSON on library.json using fs
+
+/** 
+ * This function writes the current state of the libraryArray to a JSON file.
+ * It converts the array to a JSON string with 2 spaces for indentation.
+ * It uses the fs module to write the JSON string to a file named "library.json" in the specified path.
+ * If an error occurs during the write operation, it logs an error message to the console.
+ * Consumes the libraryArray variable, which is expected to be filled with the parsed JSON data.
+ */
 const writeToJson = () => {
     //Obj -> JSON string (arr, null, 2 spaces)
     const freshJson = JSON.stringify(libraryArray, null, 2)
@@ -49,6 +74,14 @@ const writeToJson = () => {
     })
 }
 
+
+/**
+ * This function acts as a "librarian" that can perform various tasks related to books in the library.
+ * 
+ * @param {string} task 
+ * @param {string} searchTerm 
+ * @param {object} newBook 
+ */
 function librarian(task, searchTerm, newBook) {
     switch (task.toLowerCase()) {
         case "find":
@@ -69,6 +102,12 @@ function librarian(task, searchTerm, newBook) {
     }
 }
 
+
+/**
+ * This function searches for a book in the libraryArray by its title.
+ *
+ * @param {string} searchTerm 
+ */
 const findABook = (searchTerm) => {
     const book = libraryArray.find(
         (b) => b.title.toLowerCase() === searchTerm.toLowerCase()
@@ -91,6 +130,12 @@ const findABook = (searchTerm) => {
     }
 }
 
+
+/**
+ * This function checks if a book is available in the libraryArray by its title.
+ *
+ * @param {string} searchTerm 
+ */
 const isItAvailable = (searchTerm) => {
     const book = libraryArray.find(
         (b) => b.title.toLowerCase() === searchTerm.toLowerCase()
@@ -107,6 +152,12 @@ ${book.status}
     }
 }
 
+
+/**
+ * This function deletes a book from the libraryArray by its title.
+ *
+ * @param {string} searchTerm 
+ */
 const destroyABook = (searchTerm) => {
     //Looking for the book...
     console.log("Localizing book...")
@@ -133,6 +184,13 @@ const destroyABook = (searchTerm) => {
     }
 }
 
+
+/**
+ * This function adds a new book to the libraryArray.
+ * It only adds the book in the local variable libraryArray, not in the JSON file, if you need to save it, you need to call the writeToJson function.
+ *
+ * @param {object} newBook 
+ */
 const addABook = (newBook) => {
     console.log("Looking for empty books or duplicates")
     if (newBook === undefined) {

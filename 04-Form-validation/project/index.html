@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Form validation</title>
+  </head>
+
+  <body>
+    <main>
+      <h1>Form validation</h1>
+      <form id="registroEvento">
+        <label for="name">Full name</label>
+        <input type="text" id="name" name="name" />
+
+        <label for="Email">E-mail:</label>
+        <input type="text" id="Email" name="Email" />
+
+        <label for="phoneNumber">Number:</label>
+        <input type="tel" id="phoneNumber" name="phone_number" />
+
+        <label>Interests:</label>
+        <label
+          ><input type="checkbox" name="interests" value="tech" /> Tech</label
+        >
+        <label
+          ><input type="checkbox" name="interests" value="business" />
+          Business</label
+        >
+        <label
+          ><input type="checkbox" name="interests" value="art" /> Art</label
+        >
+
+        <label>Preferred schedule:</label>
+        <label>
+          <input type="radio" name="schedule" value="morning" />
+          Morning
+        </label>
+        <label>
+          <input type="radio" name="schedule" value="afternoon" />
+          Afternoon
+        </label>
+        <label>
+          <input type="radio" name="schedule" value="evening" />
+          Evening
+        </label>
+
+        <label for="eventDate">Event date:</label>
+        <input type="date" id="eventDate" name="event_date" />
+
+        <label for="preferredTime">Preferred time:</label>
+        <input type="time" id="preferredTime" name="preferred_time" />
+
+        <label for="idFile">Identification document (optional):</label>
+        <input type="file" id="idFile" name="id_file" />
+
+        <button type="submit">Register</button>
+      </form>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

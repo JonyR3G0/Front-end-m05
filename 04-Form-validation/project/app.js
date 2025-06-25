@@ -4,20 +4,9 @@
 // The goal is to create a form validation system that can be easily extended and configured.
 // Yes, I did deleted the previous code to start fresh with a new approach.
 
-document.addEventListener("DOMContentLoaded", () => {
-  //TODO: It should be an object array with the following structure: Field, and Rules
-  const formValidationConfig = [
-    {
-      //? It should capture a DOM element directly or call a variable prevuiously defined?
-      field: document.getElementById("name"),
-      rules: {
-        required: true,
-        notEmpty: true,
-        regEx: true,
-      },
-    },
-  ];
+const formValidationConfig = "./formValidationConfig.js";
 
+document.addEventListener("DOMContentLoaded", () => {
   //TODO: It should be a function that validates ONE field based on the rules defined in the formValidationConfig
   const formFieldValidator = (formField) => {
     console.log("Field loaded:", formField.field.name);
@@ -33,24 +22,47 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
   };
 
+  /**
+   * @description This function is called when the DOM is fully loaded. It will dynamically import the formValidationConfig module and iterate over its fields to add event listeners for input changes. It will also add an event listener for the form submission event.
+   *
+   * @returns {void}
+   * @throws {Error} If the form element is not found in the DOM.
+   * @throws {Error} If there is an error loading the formValidationConfig module.
+   */
   const inicializeForm = () => {
     // ? Early exit if the form element is not found
     if (!document.getElementById("register-form")) {
       console.error("Form element not found");
       return;
     }
+
     const form = document.getElementById("register-form");
-    // Iterate over the formValidationConfig to add event listeners to each field
-    for (const field of formValidationConfig) {
-      // Add event listener for input change
-      console.log("Adding event listener to field:", field.field.name);
-      field.field.addEventListener("input", (event) => {
-        formFieldValidator(field);
+
+    // Load the formValidationConfig module dynamically
+    import(formValidationConfig)
+      .then((module) => {
+        console.log(module);
+        return module.formValidationConfig;
+      })
+      .then((formValidationConfig) => {
+        // Iterate over the formValidationConfig to add event listeners to each field
+        for (const field of formValidationConfig) {
+          // Add event listener for input change
+          console.log("Adding event listener to field:", field.field.name);
+          field.field.addEventListener("input", (event) => {
+            formFieldValidator(field);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error loading form validation config:", error);
+        return;
       });
-    }
+
     // Add event listener for form submission
     form.addEventListener("submit", formHandlerSucces);
   };
 
+  // Fire 🐦‍🔥😎
   inicializeForm();
 });

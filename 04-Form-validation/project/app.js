@@ -6,19 +6,21 @@
 
 const formValidationConfig = "./formValidationConfig.js";
 
+const formValidationKeys = [];
+
 document.addEventListener("DOMContentLoaded", () => {
-  //TODO: It should be a function that validates ONE field based on the rules defined in the formValidationConfig
-  const formFieldValidator = async (formField) => {
-    
-    console.log(formField);
+  const formFieldValidator = (formField) => {
+    const actualTarget = formField.target.id;
+    console.log(actualTarget);
+    for (const element of formValidationKeys[0]) {
+      element.field.name === actualTarget
+        ? console.log("bingo")
+        : console.log("no bingo");
+    }
   };
 
-  //TODO: It should be a function that handles the form submission but it should be agnostic to the form structure, it should iterate over the form fields and validate them based on the rules defined in the formValidationConfig, using formFieldValidator
-  //! It should work in real time, (on input change) and on form submission
-  const formHandler = (event) => {};
-
-  //TODO: It should be a function that handles the form submission success, it should prevent the default form submission behavior
   const formHandlerSucces = (event) => {
+    //TODO: It should be a function that handles the form submission success, it should prevent the default form submission behavior
     // Prevent the default form submission behavior
     event.preventDefault();
   };
@@ -30,35 +32,36 @@ document.addEventListener("DOMContentLoaded", () => {
    * @throws {Error} If the form element is not found in the DOM.
    * @throws {Error} If there is an error loading the formValidationConfig module.
    */
-  const inicializeForm = () => {
+  const loadFormValidationConfig = async () => {
+    // Load the formValidationConfig module
+    try {
+      const data = await import(formValidationConfig);
+      console.log(data);
+      return data.formValidationConfig;
+    } catch {
+      (error) => {
+        console.error("Error loading form validation config:", error);
+        return;
+      };
+    }
+  };
+
+  const inicializeForm = async () => {
     // ? Early exit if the form element is not found
     if (!document.getElementById("register-form")) {
       console.error("Form element not found");
       return;
     }
 
+    // Capturing the DOM elements and importing the config file
     const form = document.getElementById("register-form");
+    formValidationKeys.push(await loadFormValidationConfig());
+    // Creating the listeners for every element
+    for (const field of formValidationKeys[0]) {
+      console.log("Adding event listener to field:", field.field.name);
+      field.field.addEventListener("input", formFieldValidator);
+    }
 
-    // Load the formValidationConfig module dynamically
-    import(formValidationConfig)
-      .then((module) => {
-        console.log(module);
-        return module.formValidationConfig;
-      })
-      .then((formValidationConfig) => {
-        // Iterate over the formValidationConfig to add event listeners to each field
-        for (const field of formValidationConfig) {
-          // Add event listener for input change
-          console.log("Adding event listener to field:", field.field.name);
-          field.field.addEventListener("input", formFieldValidator);
-        }
-      })
-      .catch((error) => {
-        console.error("Error loading form validation config:", error);
-        return;
-      });
-
-    // Add event listener for form submission
     form.addEventListener("submit", formHandlerSucces);
   };
 

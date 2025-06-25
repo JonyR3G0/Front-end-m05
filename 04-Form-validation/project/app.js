@@ -9,7 +9,7 @@ const formValidationConfig = "./formValidationConfig.js";
 document.addEventListener("DOMContentLoaded", () => {
   //TODO: It should be a function that validates ONE field based on the rules defined in the formValidationConfig
   const formFieldValidator = (formField) => {
-    console.log("Field loaded:", formField.field.name);
+    console.log(formField);
   };
 
   //TODO: It should be a function that handles the form submission but it should be agnostic to the form structure, it should iterate over the form fields and validate them based on the rules defined in the formValidationConfig, using formFieldValidator
@@ -49,9 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         for (const field of formValidationConfig) {
           // Add event listener for input change
           console.log("Adding event listener to field:", field.field.name);
-          field.field.addEventListener("input", (event) => {
-            formFieldValidator(field);
-          });
+          field.field.addEventListener("input", formFieldValidator);
         }
       })
       .catch((error) => {

@@ -8,7 +8,8 @@ const formValidationConfig = "./formValidationConfig.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   //TODO: It should be a function that validates ONE field based on the rules defined in the formValidationConfig
-  const formFieldValidator = (formField) => {
+  const formFieldValidator = async (formField) => {
+    
     console.log(formField);
   };
 

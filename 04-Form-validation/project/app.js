@@ -1,64 +1,13 @@
-// Form Validation Script
-// Integrating SRP DRY, and early exit principles
+// This file is part of the Form Validation project coded by @J0n4s4n
+// I decided to use a modular approach to keep the code organized and maintainable.
+// As I'm learning pattern design, I will implement a "Configuration-Driven Development" (think its called) as far as I know.
+// The goal is to create a form validation system that can be easily extended and configured.
+// Yes, I did deleted the previous code to start fresh with a new approach.
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Capture form elements from the DOM
-  const form = document.getElementById("register");
-  const buttonSubmit = document.getElementById("registerButton");
-  const emailValue = document.getElementById("email").value;
-  const phoneNumberValue = document.getElementById("phoneNumber").value;
-  const interestsCheckBoxes = document.querySelectorAll(
-    'input[name="interests"]:checked'
-  );
-  const timeCheckRadios = document.querySelector(
-    'input[name="horario"]:checked'
-  );
-  const eventDateValue = document.getElementById("eventDate").value;
-  const preferredTimeValue = document.getElementById("preferredTime").value;
+const formValidationConfig = [];
+const formValidation = () => {};
+const formHandler = (event) => {
+  event.preventDefault();
+};
 
-  function formValidation(event) {
-      event.preventDefault();
-      alertMessage("Registro exitoso. ¡Gracias por registrarte!");
-      resetForm();
-      return true;
-    }
-    
-const formChangeActualization = (event) => {
-        // TODO Validate form fields
-    const nameValue = document.getElementById("name").value;
-    console.log(!nameValue);
-    if(nameValue) { buttonSubmit.dissabled = true;}
-    else {buttonSubmit.disabled = false};
-    console.log(nameValue);
-    // Validaciones básicas
-    // if (!nombre || !correo || !telefono || intereses.length === 0 || !horario) {
-    //   alert("Por favor, completa todos los campos obligatorios.");
-    // }
-    //   return;
-  };
-
-  const alertMessage = (message) => {
-    const alert = document.createElement("div");
-    alert.className = "alert";
-    alert.textContent = message;
-    document.body.appendChild(alert);
-    setTimeout(() => {
-      alert.remove();
-    }, 3000);
-  };
-
-  const emailValidation = (email) => {};
-
-  const nameValidation = (name) => {};
-
-  const resetForm = () => {
-    form.reset();
-  };
-
-  // Attach event listeners
-  // ? I was formValidation() instead of formValidation
-  // ? This is a problem because it invokes the function immediately instead of passing it as a callback
-  // ? The correct way is to pass the function reference without parentheses
-  form.addEventListener("change", formChangeActualization);
-  form.addEventListener("submit", formValidation);
-});
+document.addEventListener('DOMContentLoaded', () => {});

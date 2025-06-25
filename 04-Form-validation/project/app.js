@@ -1,25 +1,64 @@
-document
-  .getElementById("registroEvento")
-  .addEventListener("submit", function (event) {
-    event.preventDefault(); // Evita el envío automático del formulario
+// Form Validation Script
+// Integrating SRP DRY, and early exit principles
 
-    // Variables
-    const nombre = document.getElementById("nombre").value;
-    const correo = document.getElementById("correo").value;
-    const telefono = document.getElementById("telefono").value;
-    const intereses = document.querySelectorAll(
-      'input[name="intereses"]:checked'
-    );
-    const horario = document.querySelector('input[name="horario"]:checked');
-    const fecha = document.getElementById("fecha").value;
-    const hora = document.getElementById("hora").value;
+document.addEventListener("DOMContentLoaded", () => {
+  // Capture form elements from the DOM
+  const form = document.getElementById("register");
+  const buttonSubmit = document.getElementById("registerButton");
+  const emailValue = document.getElementById("email").value;
+  const phoneNumberValue = document.getElementById("phoneNumber").value;
+  const interestsCheckBoxes = document.querySelectorAll(
+    'input[name="interests"]:checked'
+  );
+  const timeCheckRadios = document.querySelector(
+    'input[name="horario"]:checked'
+  );
+  const eventDateValue = document.getElementById("eventDate").value;
+  const preferredTimeValue = document.getElementById("preferredTime").value;
 
-    // Validaciones básicas
-    if (!nombre || !correo || !telefono || intereses.length === 0 || !horario) {
-      alert("Por favor, completa todos los campos obligatorios.");
-      return;
+  function formValidation(event) {
+      event.preventDefault();
+      alertMessage("Registro exitoso. ¡Gracias por registrarte!");
+      resetForm();
+      return true;
     }
+    
+const formChangeActualization = (event) => {
+        // TODO Validate form fields
+    const nameValue = document.getElementById("name").value;
+    console.log(!nameValue);
+    if(nameValue) { buttonSubmit.dissabled = true;}
+    else {buttonSubmit.disabled = false};
+    console.log(nameValue);
+    // Validaciones básicas
+    // if (!nombre || !correo || !telefono || intereses.length === 0 || !horario) {
+    //   alert("Por favor, completa todos los campos obligatorios.");
+    // }
+    //   return;
+  };
 
-    // Si todo está bien
-    alert("Registro exitoso. ¡Gracias por registrarte!");
-  });
+  const alertMessage = (message) => {
+    const alert = document.createElement("div");
+    alert.className = "alert";
+    alert.textContent = message;
+    document.body.appendChild(alert);
+    setTimeout(() => {
+      alert.remove();
+    }, 3000);
+  };
+
+  const emailValidation = (email) => {};
+
+  const nameValidation = (name) => {};
+
+  const resetForm = () => {
+    form.reset();
+  };
+
+  // Attach event listeners
+  // ? I was formValidation() instead of formValidation
+  // ? This is a problem because it invokes the function immediately instead of passing it as a callback
+  // ? The correct way is to pass the function reference without parentheses
+  form.addEventListener("change", formChangeActualization);
+  form.addEventListener("submit", formValidation);
+});

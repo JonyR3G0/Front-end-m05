@@ -26,13 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (rules.required === true) {
-      console.log("requiered Rule called");
       authRequiered(formField.value)
         ? console.log("autenticacion de requiered exitosa")
         : (errorStatus = true);
     }
-    if (rules.regEx !== null && errorStatus !== false) {
-      console.log("regex Rule called");
+    if (rules.regEx !== null && errorStatus !== true) {
       authRegEx(rules.regEx, formField.value)
         ? console.log("autenticacion de regex exitosa")
         : (errorStatus = true);
@@ -57,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // In case of not findig coincidences, return null
     return null;
   };
-  
+  // ?OK
   const authRequiered = (content) => {
     // Checs if empty after deleting spaces (also works if it's empty)
     const isEmpty = content.trim() === "" ? false : true;
@@ -71,10 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   // !PENDING
   const authRegEx = (regEx, content) => {
-    console.log('Called')
-    //TODO 1. Autentica (revisa si el content cumple con el regex)
-    // 2. retorna true o false
-    //quiero que el boton submit no este activado y mostrar el error de mensaje
+    return regEx.test(content)
   };
   // ?TEST REDO
   const renderValidationStatus = (elementId, errorStatus, errorMessage) => {

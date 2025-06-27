@@ -4,25 +4,34 @@ const formValidationConfig = "./formValidationConfig.js";
 const formValidationKeys = [];
 
 document.addEventListener("DOMContentLoaded", () => {
-  let errorStatus = false;
-
-  const formFieldValidator = (formField) => {
+  /**
+   * Event handler that validates the form field when its value changes.
+   * It retrieves the validation rules for the field, checks if the value is required
+   * and/or matches a regular expression, and then renders the validation status on the UI.
+   * TODO: find a way to validate the chekboxes & radios
+   * @param {Event} event The event object triggered by the form field change.
+   */
+  const formFieldValidator = (event) => {
+    // debugger
+    const formField = event.target;
+    let errorStatus = false;
     const rules = getRules(formField.id);
 
-    // EJEMPLO DE ESTRUCTURA DEL OBJETO RULES
-    // {
-    //   required: true,
-    //   regEx: null,
-    //   errorMessage: "Please enter your name. It should not be empty.",
-    // }
+    if (!rules) {
+      console.error("failed to retrieve rules");
+      alert("Fatal error on form validation");
+      return;
+    }
 
     if (rules.required === true) {
-      authRequiered(formField.innerHTML)
+      console.log("requiered Rule called");
+      authRequiered(formField.value)
         ? console.log("autenticacion de requiered exitosa")
         : (errorStatus = true);
     }
-    if (rules.regEx !== null && errorStatus !== true) {
-      authRegEx(rules.regEx, formField.innerHTML)
+    if (rules.regEx !== null && errorStatus !== false) {
+      console.log("regex Rule called");
+      authRegEx(rules.regEx, formField.value)
         ? console.log("autenticacion de regex exitosa")
         : (errorStatus = true);
     }
@@ -30,12 +39,24 @@ document.addEventListener("DOMContentLoaded", () => {
     renderValidationStatus(formField.id, errorStatus, rules.errorMessage);
   };
 
-  const getRules = fieldId => {
-    //TODO iterar sobre el config file, para buscar una coincidencia de las keys con el id
-    // retornar un objeto con las llaves del objeto que coincida para autenticar.
-  }
+  /**
+   * This function retrieves the validation rules for a given form field ID from the `formValidationKeys` array.
+   *
+   * @param {string} fieldId The ID of the form field for which to retrieve the rules.
+   * @returns {object | null} The rules object for the specified field, or `null` if not found.
+   */
+  const getRules = (fieldId) => {
+    for (const element of formValidationKeys[0]) {
+      if (element.field.id === fieldId) {
+        return element.rules;
+      }
+    }
 
-  const authRequiered = content => {
+    // In case of not findig coincidences, return null
+    return null;
+  };
+
+  const authRequiered = (content) => {
     //TODO 1. Autentica (revisa si esta vacio o lleno de espacios)
     // 2. retorna true o false
     //quiero que el boton submit no este activado y mostrar el error de mensaje
@@ -50,16 +71,17 @@ document.addEventListener("DOMContentLoaded", () => {
     //TODO 1. capturar el elemento
     //2,revisamos el status si status OK pintamos verde else Rojo +-
     //3. if errormensaje no es null, lo pintamos en un modal
+    console.log(errorStatus);
   };
 
-  const formHandlerSucces = event => {
+  const formHandlerSucces = (event) => {
     //TODO: It should be a function that handles the form submission success, it should prevent the default form submission behavior
     // Prevent the default form submission behavior
     event.preventDefault();
   };
 
   /**
-   * @description This function is called when the DOM is fully loaded. It will dynamically import the formValidationConfig module and iterate over its fields to add event listeners for input changes. It will also add an event listener for the form submission event.
+   * This function is called when the DOM is fully loaded. It will dynamically import the formValidationConfig module and iterate over its fields to add event listeners for input changes. It will also add an event listener for the form submission event.
    *
    * @returns {void}
    * @throws {Error} If the form element is not found in the DOM.
@@ -78,7 +100,16 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     }
   };
-
+  
+  
+  /**
+   * This asynchronous function initializes the form validation process.
+   * It first checks for the existence of the form element. If found, it loads the form validation configuration,
+   * adds event listeners to each form field for real-time validation, and sets up a submit event listener for the form.
+   *
+   * @async
+   * @returns {void} 
+   */
   const inicializeForm = async () => {
     // ? Early exit if the form element is not found
     if (!document.getElementById("register-form")) {
@@ -94,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Adding event listener to field:", field.field.name);
       field.field.addEventListener("change", formFieldValidator);
     }
-
+    // Submit event
     form.addEventListener("submit", formHandlerSucces);
   };
 

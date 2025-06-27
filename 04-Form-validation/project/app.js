@@ -68,15 +68,24 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const renderValidationStatus = (elementId, errorStatus, errorMessage) => {
-    //TODO 1. capturar el elemento
-    //2,revisamos el status si status OK pintamos verde else Rojo +-
-    //3. if errormensaje no es null, lo pintamos en un modal
+
     const element = document.getElementById(elementId);
-    console.log(element);
     // A banger that we can use logic operators here
     element.className = errorStatus ? "error" : "success";
     console.log(errorStatus);
     console.log(errorMessage);
+
+    // !Just for test drive, this need fixing
+    if (errorMessage !== null) {
+      const modalError = document.createElement("div");
+      modalError.innerHTML = errorMessage;
+      modalError.className = "modal-error";
+      document.body.appendChild(modalError);
+      console.log(element);
+      setTimeout(() => {
+        document.body.removeChild(modalError);
+      }, 5000);
+    }
   };
 
   const formHandlerSucces = (event) => {

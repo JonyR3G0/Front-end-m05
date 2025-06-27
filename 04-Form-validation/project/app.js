@@ -1,25 +1,58 @@
 // This file is part of the Form Validation project coded by @J0n4s4n
-// I decided to use a modular approach to keep the code organized and maintainable.
-// As I'm learning pattern design, I will implement a "Configuration-Driven Development" (think its called) as far as I know.
-// The goal is to create a form validation system that can be easily extended and configured.
-// Yes, I did deleted the previous code to start fresh with a new approach.
 
 const formValidationConfig = "./formValidationConfig.js";
-
 const formValidationKeys = [];
 
 document.addEventListener("DOMContentLoaded", () => {
+  let errorStatus = false;
+
   const formFieldValidator = (formField) => {
-    const actualTarget = formField.target.id;
-    console.log(actualTarget);
-    for (const element of formValidationKeys[0]) {
-      element.field.name === actualTarget
-        ? console.log("bingo")
-        : console.log("no bingo");
+    const rules = getRules(formField.id);
+
+    // EJEMPLO DE ESTRUCTURA DEL OBJETO RULES
+    // {
+    //   required: true,
+    //   regEx: null,
+    //   errorMessage: "Please enter your name. It should not be empty.",
+    // }
+
+    if (rules.required === true) {
+      authRequiered(formField.innerHTML)
+        ? console.log("autenticacion de requiered exitosa")
+        : (errorStatus = true);
     }
+    if (rules.regEx !== null && errorStatus !== true) {
+      authRegEx(rules.regEx, formField.innerHTML)
+        ? console.log("autenticacion de regex exitosa")
+        : (errorStatus = true);
+    }
+
+    renderValidationStatus(formField.id, errorStatus, rules.errorMessage);
   };
 
-  const formHandlerSucces = (event) => {
+  const getRules = fieldId => {
+    //TODO iterar sobre el config file, para buscar una coincidencia de las keys con el id
+    // retornar un objeto con las llaves del objeto que coincida para autenticar.
+  }
+
+  const authRequiered = content => {
+    //TODO 1. Autentica (revisa si esta vacio o lleno de espacios)
+    // 2. retorna true o false
+    //quiero que el boton submit no este activado y mostrar el error de mensaje
+  };
+  const authRegEx = (regEx, content) => {
+    //TODO 1. Autentica (revisa si el content cumple con el regex)
+    // 2. retorna true o false
+    //quiero que el boton submit no este activado y mostrar el error de mensaje
+  };
+
+  const renderValidationStatus = (elementId, errorStatus, errorMessage) => {
+    //TODO 1. capturar el elemento
+    //2,revisamos el status si status OK pintamos verde else Rojo +-
+    //3. if errormensaje no es null, lo pintamos en un modal
+  };
+
+  const formHandlerSucces = event => {
     //TODO: It should be a function that handles the form submission success, it should prevent the default form submission behavior
     // Prevent the default form submission behavior
     event.preventDefault();
@@ -59,12 +92,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Creating the listeners for every element
     for (const field of formValidationKeys[0]) {
       console.log("Adding event listener to field:", field.field.name);
-      field.field.addEventListener("input", formFieldValidator);
+      field.field.addEventListener("change", formFieldValidator);
     }
 
     form.addEventListener("submit", formHandlerSucces);
   };
 
-  // Fire 🐦‍🔥😎
   inicializeForm();
 });

@@ -57,7 +57,7 @@ export const formValidationConfig = [
 //       regEx: null,
 //       errorMessage: null,
 //     },
-//   },
+//   }, 
   {
     field: eventDateField,
     rules: {

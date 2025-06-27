@@ -59,13 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   
   const authRequiered = (content) => {
-    //TODO 1. Autentica (revisa si esta vacio o lleno de espacios)
-    //quiero que el boton submit no este activado y mostrar el error de mensaje
+    // Checs if empty after deleting spaces (also works if it's empty)
     const isEmpty = content.trim() === "" ? false : true;
+    // ? Maybe isn't optim to check in every validation, no?
+    // TODO move this to form field validator
     isEmpty === false
       ? (submitButton.disabled = true)
       : console.log("disabled");
-    return isEmpty;
+    // ? Returning the status is escencial to the logic of validator func.
+      return isEmpty;
   };
   // !PENDING
   const authRegEx = (regEx, content) => {

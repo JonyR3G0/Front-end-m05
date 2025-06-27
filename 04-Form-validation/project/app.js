@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     renderValidationStatus(formField.id, errorStatus, rules.errorMessage);
   };
-  
+
   /**
    * This function retrieves the validation rules for a given form field ID from the `formValidationKeys` array.
    *
@@ -55,6 +55,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   };
 
+  
+  /**
+   * This function checks if the provided content is empty after trimming whitespace.
+   * If the content is empty, it disables the submit button.
+   *
+   * @param {string} content The content to be checked for emptiness.
+   * @returns {boolean} 
+   */
   const authRequiered = (content) => {
     // Checs if empty after deleting spaces (also works if it's empty)
     const isEmpty = content.trim() === "" ? false : true;
@@ -67,9 +75,18 @@ document.addEventListener("DOMContentLoaded", () => {
     return isEmpty;
   };
 
+  
+  /**
+   * This function checks if the provided content matches the given regular expression.
+   *
+   * @param {RegExp} regEx The regular expression to test against the content.
+   * @param {string} content The content to be tested.
+   * @returns {boolean} `true` if the content matches the regular expression, `false` otherwise.
+   */
   const authRegEx = (regEx, content) => {
     return regEx.test(content);
   };
+
   // ?TEST REDO
   const renderValidationStatus = (elementId, errorStatus, errorMessage) => {
     const element = document.getElementById(elementId);
@@ -90,6 +107,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 5000);
     }
   };
+
+  
+  /**
+   * This function handles the successful submission of the form.
+   *
+   * @param {*} event 
+   */
   const formHandlerSucces = (event) => {
     //TODO: It should be a function that handles the form submission success, it should prevent the default form submission behavior
     // Prevent the default form submission behavior
@@ -142,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
       field.field.addEventListener("change", formFieldValidator);
     }
     // Submit event
-    // submitButton.disabled = true;
+    submitButton.disabled = true;
     form.addEventListener("submit", formHandlerSucces);
   };
   inicializeForm();

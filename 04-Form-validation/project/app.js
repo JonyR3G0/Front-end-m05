@@ -3,9 +3,9 @@
 const formValidationConfig = "./formValidationConfig.js";
 const formValidationKeys = [];
 const submitButton = document.getElementById("registerButton");
+const form = document.getElementById("register-form");
 
 document.addEventListener("DOMContentLoaded", () => {
-  // ?OK
   /**
    * Event handler that validates the form field when its value changes.
    * It retrieves the validation rules for the field, checks if the value is required
@@ -35,10 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ? console.log("autenticacion de regex exitosa")
         : (errorStatus = true);
     }
-
     renderValidationStatus(formField.id, errorStatus, rules.errorMessage);
   };
-  // ?OK
+  
   /**
    * This function retrieves the validation rules for a given form field ID from the `formValidationKeys` array.
    *
@@ -55,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // In case of not findig coincidences, return null
     return null;
   };
-  // ?OK
+
   const authRequiered = (content) => {
     // Checs if empty after deleting spaces (also works if it's empty)
     const isEmpty = content.trim() === "" ? false : true;
@@ -65,11 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
       ? (submitButton.disabled = true)
       : console.log("disabled");
     // ? Returning the status is escencial to the logic of validator func.
-      return isEmpty;
+    return isEmpty;
   };
-  // !PENDING
+
   const authRegEx = (regEx, content) => {
-    return regEx.test(content)
+    return regEx.test(content);
   };
   // ?TEST REDO
   const renderValidationStatus = (elementId, errorStatus, errorMessage) => {
@@ -91,13 +90,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 5000);
     }
   };
-  // !PENDING
   const formHandlerSucces = (event) => {
     //TODO: It should be a function that handles the form submission success, it should prevent the default form submission behavior
     // Prevent the default form submission behavior
     event.preventDefault();
+    console.log(
+      "Form auth correctly. Here it would be the logic to send the form to the server"
+    );
+    form.reset();
   };
-  // ?OK
   /**
    * This function is called when the DOM is fully loaded. It will dynamically import the formValidationConfig module and iterate over its fields to add event listeners for input changes. It will also add an event listener for the form submission event.
    *
@@ -118,7 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     }
   };
-  // ?OK
   /**
    * This asynchronous function initializes the form validation process.
    * It first checks for the existence of the form element. If found, it loads the form validation configuration,
@@ -135,7 +135,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Capturing the DOM elements and importing the config file
-    const form = document.getElementById("register-form");
     formValidationKeys.push(await loadFormValidationConfig());
     // Creating the listeners for every element
     for (const field of formValidationKeys[0]) {
@@ -143,9 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
       field.field.addEventListener("change", formFieldValidator);
     }
     // Submit event
-    submitButton.disabled = true;
+    // submitButton.disabled = true;
     form.addEventListener("submit", formHandlerSucces);
   };
-
   inicializeForm();
 });

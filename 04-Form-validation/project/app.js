@@ -71,7 +71,12 @@ document.addEventListener("DOMContentLoaded", () => {
     //TODO 1. capturar el elemento
     //2,revisamos el status si status OK pintamos verde else Rojo +-
     //3. if errormensaje no es null, lo pintamos en un modal
+    const element = document.getElementById(elementId);
+    console.log(element);
+    // A banger that we can use logic operators here
+    element.className = errorStatus ? "error" : "success";
     console.log(errorStatus);
+    console.log(errorMessage);
   };
 
   const formHandlerSucces = (event) => {
@@ -100,15 +105,14 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     }
   };
-  
-  
+
   /**
    * This asynchronous function initializes the form validation process.
    * It first checks for the existence of the form element. If found, it loads the form validation configuration,
    * adds event listeners to each form field for real-time validation, and sets up a submit event listener for the form.
    *
    * @async
-   * @returns {void} 
+   * @returns {void}
    */
   const inicializeForm = async () => {
     // ? Early exit if the form element is not found

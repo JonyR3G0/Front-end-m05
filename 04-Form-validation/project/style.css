@@ -8,3 +8,11 @@ form{
     border-radius: 5px;
     background-color: #f9f9f9;
 }
+
+.error{
+    border-color:red ;
+}
+
+.success{
+    border-color:aqua;
+}

@@ -2,8 +2,10 @@
 
 const formValidationConfig = "./formValidationConfig.js";
 const formValidationKeys = [];
+const submitButton = document.getElementById("registerButton");
 
 document.addEventListener("DOMContentLoaded", () => {
+  // ?OK
   /**
    * Event handler that validates the form field when its value changes.
    * It retrieves the validation rules for the field, checks if the value is required
@@ -38,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderValidationStatus(formField.id, errorStatus, rules.errorMessage);
   };
-
+  // ?OK
   /**
    * This function retrieves the validation rules for a given form field ID from the `formValidationKeys` array.
    *
@@ -55,20 +57,25 @@ document.addEventListener("DOMContentLoaded", () => {
     // In case of not findig coincidences, return null
     return null;
   };
-
+  
   const authRequiered = (content) => {
     //TODO 1. Autentica (revisa si esta vacio o lleno de espacios)
-    // 2. retorna true o false
     //quiero que el boton submit no este activado y mostrar el error de mensaje
+    const isEmpty = content.trim() === "" ? false : true;
+    isEmpty === false
+      ? (submitButton.disabled = true)
+      : console.log("disabled");
+    return isEmpty;
   };
+  // !PENDING
   const authRegEx = (regEx, content) => {
+    console.log('Called')
     //TODO 1. Autentica (revisa si el content cumple con el regex)
     // 2. retorna true o false
     //quiero que el boton submit no este activado y mostrar el error de mensaje
   };
-
+  // ?TEST REDO
   const renderValidationStatus = (elementId, errorStatus, errorMessage) => {
-
     const element = document.getElementById(elementId);
     // A banger that we can use logic operators here
     element.className = errorStatus ? "error" : "success";
@@ -76,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(errorMessage);
 
     // !Just for test drive, this need fixing
-    if (errorMessage !== null) {
+    if (errorStatus !== false) {
       const modalError = document.createElement("div");
       modalError.innerHTML = errorMessage;
       modalError.className = "modal-error";
@@ -87,13 +94,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 5000);
     }
   };
-
+  // !PENDING
   const formHandlerSucces = (event) => {
     //TODO: It should be a function that handles the form submission success, it should prevent the default form submission behavior
     // Prevent the default form submission behavior
     event.preventDefault();
   };
-
+  // ?OK
   /**
    * This function is called when the DOM is fully loaded. It will dynamically import the formValidationConfig module and iterate over its fields to add event listeners for input changes. It will also add an event listener for the form submission event.
    *
@@ -114,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     }
   };
-
+  // ?OK
   /**
    * This asynchronous function initializes the form validation process.
    * It first checks for the existence of the form element. If found, it loads the form validation configuration,
@@ -139,6 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
       field.field.addEventListener("change", formFieldValidator);
     }
     // Submit event
+    submitButton.disabled = true;
     form.addEventListener("submit", formHandlerSucces);
   };
 

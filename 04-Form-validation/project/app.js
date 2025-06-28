@@ -55,17 +55,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const formGeneralValidator = (fieldId, errorStatus) => {
     // Actualices the key object ONLY with the pair id:key that matches.
     for (const field of keys) {
+      if (fieldId === "reset") field.authErrorStatus = true;
       if (fieldId === field.field) {
         field.authErrorStatus = errorStatus;
       }
+      // For reseting purposes
     }
 
     // Updated to simplify. If every element it's error-free, the function it's truty
     let authStatus = keys.every((key) => key.authErrorStatus === false);
 
-    authStatus === true
-      ? (submitButton.disabled = false)
-      : (submitButton.disabled = true);
+    if (authStatus === true) {
+      submitButton.disabled = false;
+      submitButton.classList.add("bg-blue-600");
+      submitButton.classList.remove("bg-neutral-700");
+    } else {
+      submitButton.disabled = true;
+      submitButton.classList.remove("bg-blue-600");
+      submitButton.classList.add("bg-neutral-700");
+    }
 
     return authStatus;
   };
@@ -113,8 +121,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const renderValidationStatus = (elementId, errorStatus, errorMessage) => {
     const element = document.getElementById(elementId);
-    // A banger that we can use logic operators here
-    element.className = errorStatus ? "error" : "success";
+    const passColor = "border-emerald-400";
+    const failColor = "border-rose-500";
+
+    if (!errorStatus) {
+      element.classList.remove(failColor);
+      element.classList.add(passColor);
+    } else {
+      element.classList.remove(passColor);
+      element.classList.add(failColor);
+    }
+
     //console.log(errorStatus);
     // console.log(errorMessage);
 
@@ -138,10 +155,14 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   const formHandlerSucces = (event) => {
     // Prevent the default form submission behavior
+    console.log(keys);
     event.preventDefault();
     console.log(
       "Form auth correctly. Here it would be the logic to send the form to the server"
     );
+    const formData = new FormData(form)
+    console.log(formData);
+    formGeneralValidator("reset", true)
     form.reset();
   };
   /**
@@ -183,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Creating the listeners for every element
     for (const field of formConfigFile[0]) {
       // console.log("Adding event listener to field:", field.field.name); // For debbugging purposes
-      field.field.addEventListener("change", formFieldValidator);
+      field.field.addEventListener("input", formFieldValidator);
     }
     // Submit event
     submitButton.disabled = true;
@@ -196,6 +217,13 @@ document.addEventListener("DOMContentLoaded", () => {
         keys.push({ field: elementId, authErrorStatus: true });
       }
     });
+
+    const labels = document.querySelectorAll("input");
+    const deafultStyleTailwind =
+      "border-2 rounded-md border-blue-400 p-1 transition delay-150 duration-400 ease-in-out";
+    for (const label of labels) {
+      label.className = deafultStyleTailwind;
+    }
     // console.log(keys); // For debbugging purposes
   };
 

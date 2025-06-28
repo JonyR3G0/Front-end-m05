@@ -4,12 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Form validation</title>
   </head>
 
   <body>
-    <main>
-      <h1>Form validation</h1>
+    <main class="bg-slate-900 h-screen">
+      <h1 class="text-zinc-100 text-center text-3xl p-8">Form validation</h1>
       <form id="register-form">
         <label for="name">Full name</label>
         <input type="text" id="name" name="name" />
@@ -55,7 +62,7 @@
         <label for="idFile">Identification document (optional):</label>
         <input type="file" id="idFile" name="id_file" />
 
-        <button id="registerButton" type="submit" >Register</button>
+        <button class="m-4 text-white bg-neutral-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none dark:focus:ring-blue-800" id="registerButton" type="submit">Register</button>
       </form>
     </main>
 

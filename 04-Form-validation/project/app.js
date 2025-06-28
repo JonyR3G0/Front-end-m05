@@ -107,28 +107,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const element = document.getElementById(elementId);
     const passColor = "border-emerald-400";
     const failColor = "border-rose-500";
+    const defaultColor = "border-blue-400";
+    const errorElementId = `${elementId}-error`;
+    let errorElement = document.getElementById(errorElementId);
 
     if (!errorStatus) {
-      element.classList.remove(failColor);
+      // No error: add pass color, remove others, and remove error message if it exists.
+      element.classList.remove(failColor, defaultColor);
       element.classList.add(passColor);
+      if (errorElement) {
+        errorElement.remove();
+      }
     } else {
-      element.classList.remove(passColor);
+      // Error: add fail color, remove others, and show/create error message.
+      element.classList.remove(passColor, defaultColor);
       element.classList.add(failColor);
-    }
 
-    //console.log(errorStatus);
-    // console.log(errorMessage);
-
-    // !Just for test drive, this need fixing
-    if (errorStatus !== false) {
-      const modalError = document.createElement("div");
-      modalError.innerHTML = errorMessage;
-      modalError.className = "modal-error";
-      document.body.appendChild(modalError);
-      console.log(element);
-      setTimeout(() => {
-        document.body.removeChild(modalError);
-      }, 5000);
+      if (!errorElement) {
+        errorElement = document.createElement("p");
+        errorElement.id = errorElementId;
+        errorElement.className = "text-rose-500 text-sm mt-1"; // Example Tailwind classes
+        element.insertAdjacentElement("afterend", errorElement);
+      }
+      errorElement.textContent = errorMessage;
     }
   };
 
@@ -152,6 +153,9 @@ document.addEventListener("DOMContentLoaded", () => {
     formGeneralValidator("reset", true);
     // This is to restore the styles as a "fresh" start
     inicializeStyles();
+    // Remove any existing error messages from the DOM
+    const errorMessages = form.querySelectorAll('p[id$="-error"]');
+    errorMessages.forEach((msg) => msg.remove());
   };
   
   /**
@@ -236,11 +240,11 @@ document.addEventListener("DOMContentLoaded", () => {
   * @returns {void}
   */
  const inicializeStyles = () => {
-   const labels = document.querySelectorAll("input");
+   const inputs = document.querySelectorAll("input");
    const deafultStyleTailwind =
    "border-2 rounded-md border-blue-400 p-1 transition delay-150 duration-400 ease-in-out";
-   for (const label of labels) {
-     label.className = deafultStyleTailwind;
+   for (const input of inputs) {
+     input.className = deafultStyleTailwind;
     }
   };
   

@@ -156,11 +156,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const formHandlerSucces = (event) => {
     // Prevent the default form submission behavior
     event.preventDefault();
+    const formData = new FormData(form);
+
     console.log(
       "Form auth correctly. Here it would be the logic to send the form to the server"
     );
-    const formData = new FormData(form);
     console.log(formData);
+
     formGeneralValidator("reset", true);
     form.reset();
     inicializeStyles();

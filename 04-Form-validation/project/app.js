@@ -153,9 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
     formGeneralValidator("reset", true);
     // This is to restore the styles as a "fresh" start
     inicializeStyles();
-    // Remove any existing error messages from the DOM
-    const errorMessages = form.querySelectorAll('p[id$="-error"]');
-    errorMessages.forEach((msg) => msg.remove());
   };
   
   /**

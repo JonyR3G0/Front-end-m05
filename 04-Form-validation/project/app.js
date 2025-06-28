@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * This function updates the `keys` array with the validation status of a specific form field.
    * It then checks if all required fields are error-free and enables/disables the submit button accordingly.
    *
-   * @param {*} fieldId The id of the field evaluated
+   * @param {string} fieldId The id of the field evaluated
    * @param {boolean} errorStatus The error state of one field
    * @returns {boolean} authStatus The boolean state of general auth.
    */
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /**
    * This function handles the successful submission of the form.
    *
-   * @param {*} event
+   * @param {event} event
    */
   const formHandlerSucces = (event) => {
     // Prevent the default form submission behavior

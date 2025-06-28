@@ -163,8 +163,10 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     console.log(formData);
 
-    formGeneralValidator("reset", true);
     form.reset();
+    // This is vital to ensure the form starts un-auth when refreshing
+    formGeneralValidator("reset", true);
+    // This is to restore the styles as a "fresh" start
     inicializeStyles();
   };
   /**

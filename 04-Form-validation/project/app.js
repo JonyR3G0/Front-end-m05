@@ -4,6 +4,7 @@ const formValidationConfig = "./formValidationConfig.js";
 const formValidationKeys = [];
 const submitButton = document.getElementById("registerButton");
 const form = document.getElementById("register-form");
+const keys = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   /**
@@ -27,17 +28,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (rules.required === true) {
       authRequiered(formField.value)
-        ? console.log("autenticacion de requiered exitosa")
+        ? console.log("Auth required passed")
         : (errorStatus = true);
     }
     if (rules.regEx !== null && errorStatus !== true) {
       authRegEx(rules.regEx, formField.value)
-        ? console.log("autenticacion de regex exitosa")
+        ? console.log("Auth regEx passed")
         : (errorStatus = true);
     }
+    formGeneralValidator(formField.id, errorStatus);
     renderValidationStatus(formField.id, errorStatus, rules.errorMessage);
   };
 
+  const formGeneralValidator = (fieldId, errorStatus) => {
+    // Keys for confirmation
+    let authsPassed = 0;
+    const authsGoal = keys.length;
+    // Actualices the key object ONLY with the pair id:key that matches.
+    for (const field of keys) {
+      if (fieldId === field.field) {
+        field.authErrorStatus = errorStatus;
+      }
+    }
+    // Iterates every time the function it's called if it matches the quantity of elements that are marked as required the logic down locks or unlocks the send button, basically autheticathing the full form.
+    for (const field of keys) {
+      if (field.authErrorStatus === false) {
+        authsPassed++;
+      }
+    }
+    authsPassed === authsGoal
+      ? console.log("BINGO") // Here the logic
+      : console.log("not today bro");
+    console.log(authsPassed);
+  };
   /**
    * This function retrieves the validation rules for a given form field ID from the `formValidationKeys` array.
    *
@@ -55,27 +78,20 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   };
 
-  
   /**
    * This function checks if the provided content is empty after trimming whitespace.
    * If the content is empty, it disables the submit button.
    *
    * @param {string} content The content to be checked for emptiness.
-   * @returns {boolean} 
+   * @returns {boolean}
    */
   const authRequiered = (content) => {
     // Checs if empty after deleting spaces (also works if it's empty)
     const isEmpty = content.trim() === "" ? false : true;
-    // ? Maybe isn't optim to check in every validation, no?
-    // TODO move this to form field validator
-    isEmpty === false
-      ? (submitButton.disabled = true)
-      : console.log("disabled");
     // ? Returning the status is escencial to the logic of validator func.
     return isEmpty;
   };
 
-  
   /**
    * This function checks if the provided content matches the given regular expression.
    *
@@ -108,11 +124,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  
   /**
    * This function handles the successful submission of the form.
    *
-   * @param {*} event 
+   * @param {*} event
    */
   const formHandlerSucces = (event) => {
     //TODO: It should be a function that handles the form submission success, it should prevent the default form submission behavior
@@ -162,12 +177,21 @@ document.addEventListener("DOMContentLoaded", () => {
     formValidationKeys.push(await loadFormValidationConfig());
     // Creating the listeners for every element
     for (const field of formValidationKeys[0]) {
-      console.log("Adding event listener to field:", field.field.name);
+      // console.log("Adding event listener to field:", field.field.name); // For debbugging purposes
       field.field.addEventListener("change", formFieldValidator);
     }
     // Submit event
     submitButton.disabled = true;
     form.addEventListener("submit", formHandlerSucces);
+
+    // Initialice the counter
+    formValidationKeys[0].forEach((element) => {
+      if (element.rules.required === true) {
+        const elementId = element.field.id;
+        keys.push({ field: elementId, authErrorStatus: true });
+      }
+    });
+    // console.log(keys); // For debbugging purposes
   };
   inicializeForm();
 });

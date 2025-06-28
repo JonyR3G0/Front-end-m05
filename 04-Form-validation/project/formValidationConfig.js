@@ -20,8 +20,10 @@ export const formValidationConfig = [
     field: nameField,
     rules: {
       required: true,
-      regEx: null,
-      errorMessage: "Please enter your name. It should not be empty.",
+      // Allows letters, spaces, apostrophes, and hyphens.
+      regEx: /^[a-zA-Z\s'-]+$/,
+      errorMessage:
+        "Please enter a valid name. Only letters, spaces, apostrophes, and hyphens are allowed.",
     },
   },
   {

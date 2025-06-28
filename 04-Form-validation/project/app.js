@@ -1,10 +1,14 @@
 // This file is part of the Form Validation project coded by @J0n4s4n
 
+// Path of the config file (probably it's better for it to be JSON)
 const formValidationConfig = "./formValidationConfig.js";
-const formValidationKeys = [];
+// This array it's later used for storing the imported config file
+const formConfigFile = [];
+// Keys array, for the form general validator function
+const keys = [];
+// DOM elements (general)
 const submitButton = document.getElementById("registerButton");
 const form = document.getElementById("register-form");
-const keys = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   /**
@@ -40,35 +44,39 @@ document.addEventListener("DOMContentLoaded", () => {
     renderValidationStatus(formField.id, errorStatus, rules.errorMessage);
   };
 
+  /**
+   * This function updates the `keys` array with the validation status of a specific form field.
+   * It then checks if all required fields are error-free and enables/disables the submit button accordingly.
+   *
+   * @param {*} fieldId The id of the field evaluated
+   * @param {boolean} errorStatus The error state of one field
+   * @returns {boolean} authStatus The boolean state of general auth.
+   */
   const formGeneralValidator = (fieldId, errorStatus) => {
-    // Keys for confirmation
-    let authsPassed = 0;
-    const authsGoal = keys.length;
     // Actualices the key object ONLY with the pair id:key that matches.
     for (const field of keys) {
       if (fieldId === field.field) {
         field.authErrorStatus = errorStatus;
       }
     }
-    // Iterates every time the function it's called if it matches the quantity of elements that are marked as required the logic down locks or unlocks the send button, basically autheticathing the full form.
-    for (const field of keys) {
-      if (field.authErrorStatus === false) {
-        authsPassed++;
-      }
-    }
-    authsPassed === authsGoal
-      ? console.log("BINGO") // Here the logic
-      : console.log("not today bro");
-    console.log(authsPassed);
+
+    // Updated to simplify. If every element it's error-free, the function it's truty
+    let authStatus = keys.every((key) => key.authErrorStatus === false);
+
+    authStatus === true
+      ? (submitButton.disabled = false)
+      : (submitButton.disabled = true);
+
+    return authStatus;
   };
   /**
-   * This function retrieves the validation rules for a given form field ID from the `formValidationKeys` array.
+   * This function retrieves the validation rules for a given form field ID from the `formConfigFile` array.
    *
    * @param {string} fieldId The ID of the form field for which to retrieve the rules.
    * @returns {object | null} The rules object for the specified field, or `null` if not found.
    */
   const getRules = (fieldId) => {
-    for (const element of formValidationKeys[0]) {
+    for (const element of formConfigFile[0]) {
       if (element.field.id === fieldId) {
         return element.rules;
       }
@@ -103,13 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return regEx.test(content);
   };
 
-  // ?TEST REDO
   const renderValidationStatus = (elementId, errorStatus, errorMessage) => {
     const element = document.getElementById(elementId);
     // A banger that we can use logic operators here
     element.className = errorStatus ? "error" : "success";
-    console.log(errorStatus);
-    console.log(errorMessage);
+    //console.log(errorStatus);
+    // console.log(errorMessage);
 
     // !Just for test drive, this need fixing
     if (errorStatus !== false) {
@@ -130,7 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
    * @param {*} event
    */
   const formHandlerSucces = (event) => {
-    //TODO: It should be a function that handles the form submission success, it should prevent the default form submission behavior
     // Prevent the default form submission behavior
     event.preventDefault();
     console.log(
@@ -139,10 +145,9 @@ document.addEventListener("DOMContentLoaded", () => {
     form.reset();
   };
   /**
-   * This function is called when the DOM is fully loaded. It will dynamically import the formValidationConfig module and iterate over its fields to add event listeners for input changes. It will also add an event listener for the form submission event.
+   * This function is called by the inicializeForm function if some elements are present, this function imports dinamically the config file.
    *
    * @returns {void}
-   * @throws {Error} If the form element is not found in the DOM.
    * @throws {Error} If there is an error loading the formValidationConfig module.
    */
   const loadFormValidationConfig = async () => {
@@ -174,9 +179,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Capturing the DOM elements and importing the config file
-    formValidationKeys.push(await loadFormValidationConfig());
+    formConfigFile.push(await loadFormValidationConfig());
     // Creating the listeners for every element
-    for (const field of formValidationKeys[0]) {
+    for (const field of formConfigFile[0]) {
       // console.log("Adding event listener to field:", field.field.name); // For debbugging purposes
       field.field.addEventListener("change", formFieldValidator);
     }
@@ -185,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", formHandlerSucces);
 
     // Initialice the counter
-    formValidationKeys[0].forEach((element) => {
+    formConfigFile[0].forEach((element) => {
       if (element.rules.required === true) {
         const elementId = element.field.id;
         keys.push({ field: elementId, authErrorStatus: true });
@@ -193,5 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     // console.log(keys); // For debbugging purposes
   };
+
   inicializeForm();
 });

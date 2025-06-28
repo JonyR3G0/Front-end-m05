@@ -160,10 +160,11 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(
       "Form auth correctly. Here it would be the logic to send the form to the server"
     );
-    const formData = new FormData(form)
+    const formData = new FormData(form);
     console.log(formData);
-    formGeneralValidator("reset", true)
+    formGeneralValidator("reset", true);
     form.reset();
+    inicializeStyles();
   };
   /**
    * This function is called by the inicializeForm function if some elements are present, this function imports dinamically the config file.
@@ -218,13 +219,24 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    inicializeStyles();
+    // console.log(keys); // For debbugging purposes
+  };
+
+  /**
+   * This function initializes the styles of the form fields.
+   * It selects all input elements within the form and applies a default Tailwind CSS style to them.
+   * This ensures a consistent look for the form fields upon initialization.
+   *
+   * @returns {void}
+   */
+  const inicializeStyles = () => {
     const labels = document.querySelectorAll("input");
     const deafultStyleTailwind =
       "border-2 rounded-md border-blue-400 p-1 transition delay-150 duration-400 ease-in-out";
     for (const label of labels) {
       label.className = deafultStyleTailwind;
     }
-    // console.log(keys); // For debbugging purposes
   };
 
   inicializeForm();

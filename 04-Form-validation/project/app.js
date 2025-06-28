@@ -12,6 +12,31 @@ const form = document.getElementById("register-form");
 
 document.addEventListener("DOMContentLoaded", () => {
   /**
+   * This function checks if the provided content is empty after trimming whitespace.
+   * If the content is empty, it disables the submit button.
+   *
+   * @param {string} content The content to be checked for emptiness.
+   * @returns {boolean}
+   */
+  const authRequiered = (content) => {
+    // Checs if empty after deleting spaces (also works if it's empty)
+    const isEmpty = content.trim() === "" ? false : true;
+    // ? Returning the status is escencial to the logic of validator func.
+    return isEmpty;
+  };
+
+  /**
+   * This function checks if the provided content matches the given regular expression.
+   *
+   * @param {RegExp} regEx The regular expression to test against the content.
+   * @param {string} content The content to be tested.
+   * @returns {boolean} `true` if the content matches the regular expression, `false` otherwise.
+   */
+  const authRegEx = (regEx, content) => {
+    return regEx.test(content);
+  };
+
+  /**
    * Event handler that validates the form field when its value changes.
    * It retrieves the validation rules for the field, checks if the value is required
    * and/or matches a regular expression, and then renders the validation status on the UI.
@@ -77,47 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     return authStatus;
   };
-  /**
-   * This function retrieves the validation rules for a given form field ID from the `formConfigFile` array.
-   *
-   * @param {string} fieldId The ID of the form field for which to retrieve the rules.
-   * @returns {object | null} The rules object for the specified field, or `null` if not found.
-   */
-  const getRules = (fieldId) => {
-    for (const element of formConfigFile[0]) {
-      if (element.field.id === fieldId) {
-        return element.rules;
-      }
-    }
-
-    // In case of not findig coincidences, return null
-    return null;
-  };
-
-  /**
-   * This function checks if the provided content is empty after trimming whitespace.
-   * If the content is empty, it disables the submit button.
-   *
-   * @param {string} content The content to be checked for emptiness.
-   * @returns {boolean}
-   */
-  const authRequiered = (content) => {
-    // Checs if empty after deleting spaces (also works if it's empty)
-    const isEmpty = content.trim() === "" ? false : true;
-    // ? Returning the status is escencial to the logic of validator func.
-    return isEmpty;
-  };
-
-  /**
-   * This function checks if the provided content matches the given regular expression.
-   *
-   * @param {RegExp} regEx The regular expression to test against the content.
-   * @param {string} content The content to be tested.
-   * @returns {boolean} `true` if the content matches the regular expression, `false` otherwise.
-   */
-  const authRegEx = (regEx, content) => {
-    return regEx.test(content);
-  };
 
   const renderValidationStatus = (elementId, errorStatus, errorMessage) => {
     const element = document.getElementById(elementId);
@@ -169,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // This is to restore the styles as a "fresh" start
     inicializeStyles();
   };
+  
   /**
    * This function is called by the inicializeForm function if some elements are present, this function imports dinamically the config file.
    *
@@ -188,6 +173,24 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     }
   };
+
+  /**
+   * This function retrieves the validation rules for a given form field ID from the `formConfigFile` array.
+   *
+   * @param {string} fieldId The ID of the form field for which to retrieve the rules.
+   * @returns {object | null} The rules object for the specified field, or `null` if not found.
+   */
+  const getRules = (fieldId) => {
+    for (const element of formConfigFile[0]) {
+      if (element.field.id === fieldId) {
+        return element.rules;
+      }
+    }
+
+    // In case of not findig coincidences, return null
+    return null;
+  };
+
   /**
    * This asynchronous function initializes the form validation process.
    * It first checks for the existence of the form element. If found, it loads the form validation configuration,

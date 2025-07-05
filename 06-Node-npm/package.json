@@ -1,0 +1,15 @@
+{
+  "name": "06-node-npm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "explorar": "node index.js"
+  },
+  "keywords": [],
+  "author": "J0n4s4n",
+  "license": "ISC",
+  "description": "First simple program using node by J0n4s4n",
+  "dependencies": {
+    "cowsay": "^1.6.0"
+  }
+}

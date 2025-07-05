@@ -20,7 +20,7 @@ import z from "https://cdn.jsdelivr.net/npm/zod@3.25.11/+esm"
 //1. Scheme creation
 const usrSchema = z.object({
     name: z.string().min(1, "Obligatory"),
-    email: z.string(),
+    email: z.email(),
     phone: z.number(),
 })
 //2. Handle the info

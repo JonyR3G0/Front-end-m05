@@ -32,3 +32,5 @@ A collection of hands-on exercises crafted by [me](https://github.com/JonyR3G0),
 
 * `Implementation of jsdocs`
 * `Early exit`
+* `DRY (trying my best)`
+* `Data driven design (form validation project)`

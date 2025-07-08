@@ -28,52 +28,45 @@ A collection of hands-on exercises crafted by [me](https://github.com/JonyR3G0),
 
 ## 🔨 Projects
 
-### Project: Order Simulator
+### Project: Order simulator ☕
 
 > Description: A UI construction to simulate a coffee shop's order queue. The system assigns an initial state and asynchronously updates the interface to reflect progress, from "In Process" to "Completed."
-**=> Core Concepts:** ` Event Loop, setTimeout, Promises, async/await, DOM`
+**Core concepts:** ` Event Loop, setTimeout, Promises, async/await, DOM`
 
-### Project: Library Manager
+### Project: Library manager 🏛️
 
 > Description: A console application to manage a book collection from a JSON file. It uses a callback scheme to simulate latency in data reading and writing, allowing operations such as searching, adding, and deleting books from the inventory.
+**Core concepts:** ` Callbacks, JSON, fs (Node.js), Asynchronicity`
 
-**=> Core Concepts:** ` Callbacks, JSON, fs (Node.js), Asynchronicity`
-
-### Project: API Consumption
+### Project: API Consumption 🛰️
 
 > Description: A web interface that fetches and displays data from the Rick and Morty API. The project implements two data fetching methods for comparison: the browser's native Fetch API and the Axios library. The results are rendered on character cards.
+**Core concepts:**` Fetch API, Axios, REST API, Promises, async/await`
 
-**=> Core Concepts:** ` Fetch API, Axios, REST API, Promises, async/await`
-
-### Project: Reservation System
+### Project: Reservation system 🍽️
 
 > Description: Logic for a restaurant reservation system that manages table availability. The flow is controlled by promise chaining to check availability and subsequently send a simulated confirmation. Robust error handling is implemented for scenarios where the reservation cannot be completed.
+**Core concepts:** ` Promises, Promise Chaining, Error Handling, async/await`
 
-**=> Core Concepts:** ` Promises, Promise Chaining, Error Handling, async/await`
-
-### Project: Form Validation
+### Project: Form validation ✅
 
 > Description: A real-time form validation system, structured under a Data-Driven Design approach. The configuration of validation rules, including regular expressions, is externalized into an object to decouple logic and improve maintainability.
+**Core concepts:** ` DOM Events, RegExp, Data-Driven Design, UI Feedback`
 
-**=> Core Concepts:** ` DOM Events, RegExp, Data-Driven Design, UI Feedback`
-
-### Project: Validation with Zod
+### Project: Validation with Zod ☑️
 
 > Description: Refactoring of form validation using the Zod library for data schema definition. Validation is executed upon form submission, comparing the entered data against the predefined schema and displaying errors in a structured manner.
+**Core concepts:** ` Schema Validation, Zod, Error Handling, Type-Safe`
 
-**=> Core Concepts:** ` Schema Validation, Zod, Error Handling, Type-Safe`
-
-### Project: Planet Explorer
+### Project: Planet explorer 🌏
 
 > Description: An elementary Node.js script that uses a local module to obtain planet data and an external npm dependency (cowsay) to display it stylistically in the console. It serves as an introduction to the Node ecosystem, package management, and modularization.
+**Core concepts:** ` Node.js, npm, CommonJS Modules`
 
-**=> Core Concepts:** ` Node.js, npm, CommonJS Modules`
-
-### Project: Guess the Number
+### Project: Guess the number 🔢
 
 > Description: A simple web game developed and served with Vite. The project demonstrates the basic setup of a modern development environment, the use of JavaScript modules (ESM), and DOM manipulation for the game's logic.
-
-**=> Core Concepts:** ` Vite, ES Modules, DOM, Dev Server`
+**Core concepts:** ` Vite, ES Modules, DOM, Dev Server`
 
 ## ⚡ New good-practices adquired
 
